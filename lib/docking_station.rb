@@ -15,10 +15,11 @@ class DockingStation
 
   def release_bike
     raise 'No bikes to release' if empty?
-    Bike.new
+    raise 'No working bikes' if @bikes.last.broken?
+    @bikes.pop
   end
 
-private
+  private
 
   def full?
     @bikes.count >= capacity
@@ -27,5 +28,4 @@ private
   def empty?
     @bikes.empty?
   end
-
 end

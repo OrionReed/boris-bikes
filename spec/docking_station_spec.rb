@@ -11,8 +11,13 @@ describe DockingStation do
     it "gives a bike that responds to #working?" do
       subject.dock(Bike.new)
       bike = subject.release_bike
-      expect(bike).to(respond_to(:working?))
-      expect(bike).to(be_working)
+      expect(bike).not_to(be_broken)
+    end
+    it "doesn't release broken bikes" do
+      broken_bike = Bike.new
+      broken_bike.report_broken
+      subject.dock(broken_bike)
+      expect { subject.release_bike }.to(raise_exception('No working bikes'))
     end
   end
   describe '#dock' do
