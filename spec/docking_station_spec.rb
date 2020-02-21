@@ -3,7 +3,6 @@ describe DockingStation do
   it { is_expected.to(respond_to(:release_bike)) }
   it { is_expected.to(respond_to(:dock)) }
   it { is_expected.to(respond_to(:capacity)) }
-  it { expect(subject).to(have_attributes(bikes: [])) }
   it { is_expected.to(respond_to(:dock).with(1).argument) }
   describe '#release_bike' do
     it 'raises an error when empty' do
@@ -13,6 +12,7 @@ describe DockingStation do
       subject.dock(Bike.new)
       bike = subject.release_bike
       expect(bike).to(respond_to(:working?))
+      expect(bike).to(be_working)
     end
   end
   describe '#dock' do
